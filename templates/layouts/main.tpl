@@ -9,7 +9,9 @@
 
     {include file="../components/header.tpl"}
 
-    {block name="content"}{/block}
+    <main>
+        {block name="content"}{/block}
+    </main>
 
     {include file="../components/footer.tpl"}
 </body>

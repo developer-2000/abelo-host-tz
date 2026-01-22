@@ -1,0 +1,19 @@
+// Импорт layouts
+@import "layouts/header";
+@import "layouts/footer";
+
+// Импорт components
+@import "components/home";
+
+// Базовые стили
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+* {
+    box-sizing: border-box;
+}

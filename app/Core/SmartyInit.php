@@ -21,4 +21,8 @@ $smarty->escape_html = true;
 // Конфиги Smarty
 $smarty->configLoad('site.conf');
 
+// Глобальные переменные
+$smarty->assignGlobal('app_name', 'AbeloHost Blog');
+$smarty->assignGlobal('base_url', '/');
+
 return $smarty;

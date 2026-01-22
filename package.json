@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Cursor Blog - PHP + Smarty blog",
   "scripts": {
-    "dev": "sass --watch assets/scss:public/assets/css",
-    "build": "sass assets/scss:public/assets/css --style compressed"
+    "dev": "sass --watch assets/scss/main.scss:public/assets/css/main.css --no-source-map --style expanded --poll",
+    "build": "sass assets/scss/main.scss:public/assets/css/main.css --style compressed --no-source-map"
   },
   "devDependencies": {
     "sass": "^1.70.0"

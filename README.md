@@ -17,10 +17,12 @@ abelo-host-tz/
 ├── app/                   # PHP приложение
 │   ├── Controllers/       # Контроллеры
 │   ├── Models/            # Модели
-│   └── Core/              # Ядро (Database, SmartyInit)
+│   ├── Core/              # Ядро (Router, SmartyInit)
+│   └── routes/            # Маршруты (web.php)
 ├── public/                # Публичная директория
 │   ├── index.php          # Точка входа
 │   └── assets/            # Статические файлы
+│       └── css/            # Скомпилированный CSS
 ├── templates/             # Шаблоны Smarty
 │   ├── layouts/           # Верхний слой
 │   ├── pages/             # Шаблоны страниц
@@ -30,7 +32,16 @@ abelo-host-tz/
 │   └── seed.php           # Сидинги
 ├── assets/                
 │   └── scss/              # SCSS файлы
+│       ├── main.scss      # Главный файл
+│       ├── layouts/       # Стили layouts
+│       └── components/    # Стили компонентов
+├── configs/               # Конфигурации Smarty
+├── var/                   # Кэш и скомпилированные шаблоны
+│   ├── templates_c/       # Скомпилированные шаблоны Smarty
+│   └── cache/             # Кэш Smarty
 └── docker/                # Docker конфигурации
+    ├── nginx/             # Конфигурация Nginx
+    └── php/               # Конфигурация PHP
 ```
 ## Быстрый старт
 
