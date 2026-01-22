@@ -78,7 +78,7 @@ class Post
                 WHERE pc.category_id IN (
                     SELECT category_id 
                     FROM post_category 
-                    WHERE post_id = :post_id
+                    WHERE post_id = :post_id_sub
                 )
                 AND p.id != :post_id
                 ORDER BY p.created_at DESC
@@ -86,6 +86,7 @@ class Post
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
+        $stmt->bindValue(':post_id_sub', $postId, PDO::PARAM_INT);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
 

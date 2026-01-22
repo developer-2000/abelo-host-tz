@@ -9,7 +9,6 @@ use Smarty;
 
 /**
  * Базовый контроллер для всех контроллеров приложения
- * 
  * Содержит общие методы и свойства, используемые всеми контроллерами.
  */
 abstract class BaseController
@@ -18,8 +17,6 @@ abstract class BaseController
     protected ValidatorService $validator;
 
     /**
-     * Конструктор базового контроллера
-     * 
      * @param Smarty $smarty Объект Smarty для работы с шаблонами
      */
     public function __construct(Smarty $smarty)
@@ -29,8 +26,6 @@ abstract class BaseController
     }
 
     /**
-     * Валидация ID из GET-параметра
-     * 
      * Проверяет валидность ID и показывает 404 при ошибке.
      * 
      * @param mixed $param Параметр для валидации (обычно из $_GET)
@@ -49,8 +44,6 @@ abstract class BaseController
     }
 
     /**
-     * Отображение страницы 404
-     * 
      * Устанавливает HTTP статус 404 и отображает шаблон страницы ошибки.
      * 
      * @return void

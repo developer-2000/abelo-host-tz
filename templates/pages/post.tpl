@@ -3,17 +3,14 @@
 {* Блок контента страницы поста *}
 {block name="content"}
     <div class="post-page">
-        {* Проверка наличия поста *}
+
         {if $post}
-            {* Кнопка возврата на главную *}
-            <a href="/" class="btn btn--back">← Назад на главную</a>
-            
             {* Кнопка возврата к категории *}
             {if $post.categories && count($post.categories) > 0}
                 {assign var="firstCategory" value=$post.categories[0]}
-                <a href="/category?id={$firstCategory.id}" class="btn btn--back btn--back-secondary">
-                    ← Назад к категории "{$firstCategory.name|escape}"
-                </a>
+                <a href="/category?id={$firstCategory.id}" class="btn btn--back">← Назад к Категории</a>
+            {else}
+                <a href="/" class="btn btn--back">← На главную</a>
             {/if}
             
             {* Основной блок статьи *}

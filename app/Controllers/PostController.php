@@ -11,8 +11,6 @@ class PostController extends BaseController
     private PostService $postService;
 
     /**
-     * Конструктор контроллера страницы статьи
-     * 
      * @param \Smarty $smarty Объект Smarty для работы с шаблонами
      */
     public function __construct(\Smarty $smarty)
@@ -23,11 +21,7 @@ class PostController extends BaseController
 
     /**
      * Отображение страницы статьи
-     * 
      * Получает данные статьи, увеличивает счётчик просмотров и получает похожие статьи.
-     * Поддерживает GET-параметр:
-     * - id (обязательный) - ID статьи
-     * 
      * При отсутствии или невалидном ID статьи отображает страницу 404.
      * 
      * @return void

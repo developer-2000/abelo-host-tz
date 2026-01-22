@@ -64,14 +64,4 @@ class CategoryService
         ];
     }
 
-    /**
-     * Проверить существование категории
-     * 
-     * @param int $categoryId ID категории
-     * @return bool true если категория существует
-     */
-    public function categoryExists(int $categoryId): bool
-    {
-        return $this->categoryModel->getById($categoryId) !== null;
-    }
 }

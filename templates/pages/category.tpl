@@ -5,7 +5,7 @@
     <div class="category-page">
         {if $category}
             {* Кнопка возврата на главную *}
-            <a href="/" class="btn btn--back">← Назад на главную</a>
+            <a href="/" class="btn btn--back">← На главную</a>
             
             <h1 class="page-title">{$category.name|escape}</h1>
             

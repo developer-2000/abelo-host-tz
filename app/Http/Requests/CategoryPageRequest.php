@@ -28,8 +28,9 @@ class CategoryPageRequest
             throw new \InvalidArgumentException('Invalid category id');
         }
 
-        $this->sort = in_array($query['sort'] ?? 'date', ['date', 'views'], true)
-            ? $query['sort']
+        $sort = $query['sort'] ?? 'date';
+        $this->sort = in_array($sort, ['date', 'views'], true)
+            ? $sort
             : 'date';
 
         $this->page = max(1, (int)($query['page'] ?? 1));

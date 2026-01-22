@@ -31,7 +31,7 @@ class PostService
 
         // Увеличиваем счётчик просмотров
         $this->postModel->incrementViews($postId);
-        $post['views']++; // Обновляем локально для отображения
+        $post['views']++;
 
         // Получаем похожие статьи
         $similarPosts = $this->postModel->getSimilar($postId, 3);
@@ -42,14 +42,4 @@ class PostService
         ];
     }
 
-    /**
-     * Проверить существование статьи
-     * 
-     * @param int $postId ID статьи
-     * @return bool true если статья существует
-     */
-    public function postExists(int $postId): bool
-    {
-        return $this->postModel->getById($postId) !== null;
-    }
 }

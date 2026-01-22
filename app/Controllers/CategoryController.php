@@ -14,8 +14,6 @@ class CategoryController extends BaseController
     private PaginationService $paginationService;
 
     /**
-     * Конструктор контроллера страницы категории
-     * 
      * @param \Smarty $smarty Объект Smarty для работы с шаблонами
      */
     public function __construct(\Smarty $smarty)
