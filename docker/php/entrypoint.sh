@@ -49,6 +49,81 @@ echo "Setting permissions..."
 chown -R www-data:www-data /var/www 2>/dev/null || true
 chmod -R 755 /var/www 2>/dev/null || true
 
+# Проверяем и загружаем схему БД (если таблиц нет)
+echo "Checking database schema..."
+if [ -f "database/schema.sql" ]; then
+    # Проверяем через PHP, существует ли таблица categories
+    TABLE_EXISTS=$(php -r "
+    try {
+        \$pdo = new PDO(
+            'mysql:host=${DB_HOST:-mysql};dbname=${DB_DATABASE:-abelo_host_tz};charset=utf8mb4',
+            '${DB_USERNAME:-root}',
+            '${DB_PASSWORD:-root}',
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+        \$stmt = \$pdo->query(\"SHOW TABLES LIKE 'categories'\");
+        echo \$stmt->rowCount() > 0 ? '1' : '0';
+    } catch (Exception \$e) {
+        echo '0';
+    }
+    " 2>/dev/null || echo "0")
+    
+    if [ "$TABLE_EXISTS" = "0" ]; then
+        echo "Loading database schema..."
+        php -r "
+        try {
+            \$pdo = new PDO(
+                'mysql:host=${DB_HOST:-mysql};dbname=${DB_DATABASE:-abelo_host_tz};charset=utf8mb4',
+                '${DB_USERNAME:-root}',
+                '${DB_PASSWORD:-root}',
+                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+            );
+            \$sql = file_get_contents('database/schema.sql');
+            \$pdo->exec(\$sql);
+            echo 'Database schema loaded successfully.\n';
+        } catch (Exception \$e) {
+            echo 'Warning: Failed to load schema.sql: ' . \$e->getMessage() . '\n';
+            exit(1);
+        }
+        " 2>&1 || {
+            echo "Warning: Failed to load schema.sql. You may need to load it manually."
+        }
+    else
+        echo "Database schema already exists. Skipping..."
+    fi
+fi
+
+# Проверяем и запускаем сидеры (если данных нет)
+echo "Checking database seeding..."
+if [ -f "database/seed.php" ]; then
+    # Проверяем через PHP, есть ли данные в таблице categories
+    CATEGORIES_COUNT=$(php -r "
+    try {
+        \$pdo = new PDO(
+            'mysql:host=${DB_HOST:-mysql};dbname=${DB_DATABASE:-abelo_host_tz};charset=utf8mb4',
+            '${DB_USERNAME:-root}',
+            '${DB_PASSWORD:-root}',
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+        \$stmt = \$pdo->query('SELECT COUNT(*) as count FROM categories');
+        \$result = \$stmt->fetch(PDO::FETCH_ASSOC);
+        echo \$result['count'] ?? '0';
+    } catch (Exception \$e) {
+        echo '0';
+    }
+    " 2>/dev/null || echo "0")
+    
+    if [ "$CATEGORIES_COUNT" = "0" ] || [ -z "$CATEGORIES_COUNT" ]; then
+        echo "Running database seeders..."
+        php database/seed.php 2>&1 || {
+            echo "Warning: Failed to run seed.php. You may need to run it manually."
+        }
+        echo "Database seeding completed."
+    else
+        echo "Database already seeded ($CATEGORIES_COUNT categories found). Skipping..."
+    fi
+fi
+
 echo "Setup complete. PHP-FPM is running."
 # Держим контейнер живым и ждем сигнала завершения
 trap 'echo "Stopping PHP-FPM..."; PHP_FPM_PID=$(ps aux | grep "[p]hp-fpm: master process" | awk "{print \$2}" | head -1); [ -n "$PHP_FPM_PID" ] && kill -TERM "$PHP_FPM_PID" 2>/dev/null || true; exit 0' TERM INT
