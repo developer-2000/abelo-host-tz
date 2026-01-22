@@ -1,0 +1,12 @@
+{
+  "name": "abelo-host-tz",
+  "version": "1.0.0",
+  "description": "Cursor Blog - PHP + Smarty blog",
+  "scripts": {
+    "dev": "sass --watch assets/scss:public/assets/css",
+    "build": "sass assets/scss:public/assets/css --style compressed"
+  },
+  "devDependencies": {
+    "sass": "^1.70.0"
+  }
+}

@@ -1,0 +1,15 @@
+node_modules
+vendor
+.git
+.gitignore
+.env
+.env.backup
+.env.production
+.idea
+.cursor
+*.md
+!README.md
+docker-compose.yml
+Dockerfile
+.dockerignore
+old docker files
