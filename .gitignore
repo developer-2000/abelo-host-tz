@@ -34,3 +34,6 @@ docker-compose.override.yml
 # Project specific
 help.txt
 
+# Smarty
+/var/templates_c/
+/var/cache/
