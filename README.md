@@ -9,6 +9,7 @@
 - База данных MySQL 8
 - Nginx
 - Node.js (для компиляции SCSS)
+- [Шаблонизатор Smarty](https://www.smarty.net/docsv2/ru/index.tpl) 
 
 ## Быстрый старт
 
