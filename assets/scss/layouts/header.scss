@@ -1,25 +1,47 @@
-header {
-    background-color: #fff;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 1rem 0;
+@import "../variables";
 
-    nav {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 1rem;
+.header {
+    background-color: #fff;
+    border-bottom: 1px solid $border-color;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    &__nav {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 2rem;
+    }
 
-        a {
-            color: #333;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
+    &__logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-color;
+        text-decoration: none;
+        transition: color 0.3s ease;
 
-            &:hover {
-                color: #007bff;
-            }
+        &:hover {
+            color: $primary-color;
+        }
+    }
+
+    &__links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    &__link {
+        color: $text-color;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            color: $primary-color;
+            background: $light-bg;
         }
     }
 }

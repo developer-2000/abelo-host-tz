@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Helpers\PaginationHelper;
+
 $smarty = new Smarty();
 
 // Пути
@@ -20,6 +22,15 @@ $smarty->escape_html = true;
 
 // Конфиги Smarty
 $smarty->configLoad('site.conf');
+
+// Регистрация функции для генерации ссылок пагинации
+$smarty->registerPlugin('function', 'buildPageLink', function (array $params, $template) {
+    $queryParams = $params['queryParams'] ?? [];
+    $baseUrl = $params['baseUrl'] ?? '';
+    $page = (int)($params['page'] ?? 1);
+    
+    return PaginationHelper::buildPageLink($queryParams, $baseUrl, $page);
+});
 
 // Глобальные переменные
 $smarty->assignGlobal('app_name', 'AbeloHost Blog');

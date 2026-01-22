@@ -1,21 +1,83 @@
-.home-page {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
+@import "../variables";
 
-    h1 {
-        font-size: 2.5rem;
-        color: #333;
-        margin: 0 0 1rem 0;
-        font-weight: 700;
-        text-align: center;
+.home-page {
+    .category-section {
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid $border-color;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &__title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+
+            a {
+                color: $text-color;
+                text-decoration: none;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+        }
+
+        &__description {
+            color: $secondary-color;
+            margin: 0 0 1.5rem 0;
+            font-size: 1rem;
+        }
+
+        &__posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+    }
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+
+    &--primary {
+        background: $primary-color;
+        color: $bg-color;
+
+        &:hover {
+            background: darken($primary-color, 10%);
+        }
     }
 
-    p {
-        font-size: 1.125rem;
-        color: blue;
-        margin: 0;
-        text-align: center;
-        line-height: 1.6;
+    &--back {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        padding: 0.5rem 1rem;
+        background: $light-bg;
+        color: $text-color;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        font-size: 0.95rem;
+
+        &:hover {
+            background: $primary-color;
+            color: $bg-color;
+            border-color: $primary-color;
+        }
+
+        &-secondary {
+            margin-left: 0.5rem;
+        }
     }
 }

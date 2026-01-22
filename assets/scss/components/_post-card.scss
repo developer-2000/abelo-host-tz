@@ -1,0 +1,68 @@
+@import "../variables";
+
+.post-card {
+    background: $bg-color;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    &__image-wrapper {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        background: $light-bg;
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    &__content {
+        padding: 1.5rem;
+    }
+
+    &__title {
+        margin: 0 0 0.75rem 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+
+        a {
+            color: $text-color;
+            text-decoration: none;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+
+    &__description {
+        color: $secondary-color;
+        margin: 0 0 1rem 0;
+        line-height: 1.6;
+    }
+
+    &__meta {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: $secondary-color;
+    }
+
+    &__views,
+    &__date {
+        display: inline-block;
+    }
+}

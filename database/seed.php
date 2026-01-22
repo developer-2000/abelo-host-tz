@@ -32,14 +32,17 @@ try {
 echo "Начинаем наполнение базы данных...\n\n";
 
 // Функция для генерации URL изображения из placeholder-сервиса
-function generatePostImage(): string
+// Используем фиксированный ID изображения, чтобы оно не менялось при перезагрузке
+function generatePostImage(int $postIndex): string
 {
     $width = rand(800, 1200);
     $height = rand(600, 800);
-    $imageId = rand(1, 1000);
+    // Используем индекс статьи + смещение для получения фиксированного ID изображения
+    // ID от 1 до 1000 в picsum.photos
+    $imageId = ($postIndex % 1000) + 1;
     
-    // Используем picsum.photos для реалистичных изображений
-    return "https://picsum.photos/{$width}/{$height}?random={$imageId}";
+    // Используем picsum.photos с фиксированным ID для стабильности изображения
+    return "https://picsum.photos/id/{$imageId}/{$width}/{$height}";
 }
 
 // Функция для генерации случайной даты в прошлом
@@ -150,7 +153,7 @@ for ($i = 0; $i < $postsCount; $i++) {
     $title = $postTitles[array_rand($postTitles)];
     $description = $postDescriptions[array_rand($postDescriptions)];
     $content = str_repeat($postContents[array_rand($postContents)] . ' ', rand(3, 8));
-    $image = generatePostImage();
+    $image = generatePostImage($i); // Передаем индекс для фиксированного ID изображения
     $views = rand(0, 500);
     $createdAt = generateRandomDate();
     

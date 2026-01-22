@@ -1,0 +1,94 @@
+@import "../variables";
+
+.category-page {
+    .category-description {
+        font-size: 1.1rem;
+        color: $secondary-color;
+        margin: 0 0 2rem 0;
+        line-height: 1.6;
+    }
+}
+
+.category-section {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid $border-color;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &__title {
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+
+        a {
+            color: $text-color;
+            text-decoration: none;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+
+    &__description {
+        color: $secondary-color;
+        margin: 0 0 1.5rem 0;
+        font-size: 1rem;
+    }
+
+    &__posts {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+.category-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: $light-bg;
+    border-radius: 8px;
+
+    &__label {
+        font-weight: 500;
+        color: $text-color;
+    }
+
+    &__link {
+        padding: 0.5rem 1rem;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        color: $text-color;
+        text-decoration: none;
+        background: $bg-color;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: $primary-color;
+            color: $bg-color;
+            border-color: $primary-color;
+        }
+
+        &--active {
+            background: $primary-color;
+            color: $bg-color;
+            border-color: $primary-color;
+            font-weight: 600;
+        }
+    }
+}
+
+.posts-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
