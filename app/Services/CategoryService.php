@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Models\Category;
+use App\Repositories\CategoryRepository;
 
 class CategoryService
 {
-    private Category $categoryModel;
+    private CategoryRepository $categoryRepository;
 
     public function __construct()
     {
-        $this->categoryModel = new Category();
+        $this->categoryRepository = new CategoryRepository();
     }
 
     /**
@@ -23,7 +23,7 @@ class CategoryService
      */
     public function getCategoriesWithPosts(int $limit = 3): array
     {
-        return $this->categoryModel->getAllWithPosts($limit);
+        return $this->categoryRepository->getAllWithPosts($limit);
     }
 
     /**
@@ -37,7 +37,7 @@ class CategoryService
      */
     public function getCategoryPageData(int $categoryId, string $sort, int $page, int $perPage): ?array
     {
-        $category = $this->categoryModel->getById($categoryId);
+        $category = $this->categoryRepository->getById($categoryId);
         
         if (!$category) {
             return null;
@@ -51,12 +51,12 @@ class CategoryService
         // Валидация страницы
         $page = max(1, $page);
 
-        $posts = $this->categoryModel->getPosts($categoryId, $sort, $page, $perPage);
-        $totalPosts = $this->categoryModel->countPosts($categoryId);
+        $posts = $this->categoryRepository->getPosts($categoryId, $sort, $page, $perPage);
+        $totalPosts = $this->categoryRepository->countPosts($categoryId);
         $totalPages = (int)ceil($totalPosts / $perPage);
 
         return [
-            'category' => $category,
+            'category' => $category->toArray(),
             'posts' => $posts,
             'currentPage' => $page,
             'totalPages' => $totalPages,

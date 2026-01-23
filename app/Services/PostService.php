@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Models\Post;
+use App\Repositories\PostRepository;
 
 class PostService
 {
-    private Post $postModel;
+    private const SIMILAR_POSTS_LIMIT = 3;
+
+    private PostRepository $postRepository;
 
     public function __construct()
     {
-        $this->postModel = new Post();
+        $this->postRepository = new PostRepository();
     }
 
     /**
@@ -23,23 +25,40 @@ class PostService
      */
     public function getPostPageData(int $postId): ?array
     {
-        $post = $this->postModel->getById($postId);
+        $post = $this->postRepository->getById($postId);
         
         if (!$post) {
             return null;
         }
 
-        // Увеличиваем счётчик просмотров
-        $this->postModel->incrementViews($postId);
-        $post['views']++;
+        // Получаем категории статьи
+        $categories = $this->postRepository->getCategoriesByPostId($postId);
+        
+        // Собираем финальную структуру для шаблона
+        $postData = $post->toArray();
+        $postData['categories'] = $categories;
 
         // Получаем похожие статьи
-        $similarPosts = $this->postModel->getSimilar($postId, 3);
+        $similarPosts = $this->postRepository->getSimilar($postId, self::SIMILAR_POSTS_LIMIT);
+        
+        // Конвертируем объекты в массивы для шаблона
+        $similarPostsData = array_map(fn($post) => $post->toArray(), $similarPosts);
 
         return [
-            'post' => $post,
-            'similarPosts' => $similarPosts
+            'post' => $postData,
+            'similarPosts' => $similarPostsData
         ];
+    }
+
+    /**
+     * увеличить счётчик просмотров
+     * 
+     * @param int $postId ID статьи
+     * @return void
+     */
+    public function trackView(int $postId): void
+    {
+        $this->postRepository->incrementViews($postId);
     }
 
 }

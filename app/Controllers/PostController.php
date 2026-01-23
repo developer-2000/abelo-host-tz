@@ -28,15 +28,27 @@ class PostController extends BaseController
      */
     public function show(): void
     {
-        // Валидация и получение ID статьи
-        $postId = $this->validateId($_GET['id'] ?? null);
+        // Валидация ID до вызова сервиса
+        $postId = $this->validator->validateIdOrNull($_GET['id'] ?? null);
+        
+        if ($postId === null) {
+            $this->show404();
+            return;
+        }
 
+        // Получаем данные статьи (чтение)
         $data = $this->postService->getPostPageData($postId);
         
         if (!$data) {
             $this->show404();
             return;
         }
+
+        // Увеличиваем счётчик просмотров только для существующей статьи
+        $this->postService->trackView($postId);
+        
+        // Обновляем счётчик в данных для отображения
+        $data['post']['views']++;
 
         $this->smarty->assign('post', $data['post']);
         $this->smarty->assign('similarPosts', $data['similarPosts']);
