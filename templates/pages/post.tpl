@@ -51,7 +51,7 @@
                 
                 {* Содержимое поста *}
                 <div class="post__content">
-                    {$post.content|nl2br}
+                    {$post.content|escape|nl2br}
                 </div>
             </article>
             

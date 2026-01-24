@@ -26,24 +26,6 @@ abstract class BaseController
     }
 
     /**
-     * Проверяет валидность ID и показывает 404 при ошибке.
-     * 
-     * @param mixed $param Параметр для валидации (обычно из $_GET)
-     * @return int Валидный ID
-     */
-    protected function validateId($param): int
-    {
-        $id = $this->validator->validateIdOrNull($param);
-        
-        if ($id === null) {
-            $this->show404();
-            exit;
-        }
-        
-        return $id;
-    }
-
-    /**
      * Устанавливает HTTP статус 404 и отображает шаблон страницы ошибки.
      * 
      * @return void

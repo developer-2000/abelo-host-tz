@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+namespace App\Core;
+
+use Smarty;
+
 class Router
 {
     private array $routes;
@@ -20,7 +24,8 @@ class Router
 
         if (!isset($this->routes[$uri])) {
             http_response_code(404);
-            echo '404 Not Found';
+            $this->smarty->assign('title', '404 - Страница не найдена');
+            $this->smarty->display('pages/404.tpl');
             return;
         }
 

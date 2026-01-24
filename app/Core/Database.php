@@ -28,7 +28,7 @@ class Database
                     ]
                 );
             } catch (PDOException $e) {
-                throw new \RuntimeException("Ошибка подключения к БД: " . $e->getMessage());
+                throw new \RuntimeException('Ошибка подключения к базе данных.');
             }
         }
 
